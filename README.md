@@ -45,7 +45,7 @@ Bu proje, kullanıcıların araç paylaşım seyahatleri düzenleyebileceği ve 
 
     ```bash
     git clone https://github.com/ixayldz/isa-rideshare
-    cd your-repo-name
+    cd isa-rideshare
     ```
 
 2. **Bağımlılıkları Yükleyin:**
