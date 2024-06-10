@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rideshare API Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #77B5D8 3px solid;
+        }
+        header a {
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+        ul {
+            padding: 0;
+            list-style: none;
+        }
+        .main h1 {
+            text-align: center;
+            color: #333;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .section h2 {
+            color: #77B5D8;
+        }
+        .section pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ddd;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Rideshare API Documentation</h1>
+        </div>
+    </header>
+    <div class="container">
+        <div class="main">
+            <section class="section">
+                <h2>1. Kullanıcı Kayıt ve Giriş</h2>
+                <h3>Kullanıcı Kaydı</h3>
+                <pre><code>POST /api/auth/register
+Headers: Content-Type: application/json
+Body:
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "password123"
+}</code></pre>
+
+                <h3>Kullanıcı Girişi</h3>
+                <pre><code>POST /api/auth/login
+Headers: Content-Type: application/json
+Body:
+{
+  "email": "john@example.com",
+  "password": "password123"
+}</code></pre>
+            </section>
+
+            <section class="section">
+                <h2>2. Kullanıcı Profili</h2>
+                <h3>Profil Bilgilerini Alma</h3>
+                <pre><code>GET /api/user
+Headers: 
+  x-auth-token: [token]</code></pre>
+
+                <h3>Profil Bilgilerini Güncelleme</h3>
+                <pre><code>PUT /api/user
+Headers: 
+  x-auth-token: [token]
+Body:
+{
+  "name": "John Updated",
+  "email": "john_updated@example.com"
+}</code></pre>
+            </section>
+
+            <section class="section">
+                <h2>3. Seyahat Oluşturma ve Yönetimi</h2>
+                <h3>Seyahat Oluşturma</h3>
+                <pre><code>POST /api/trips
+Headers: 
+  x-auth-token: [token]
+Body:
+{
+  "origin": "Istanbul",
+  "destination": "Ankara",
+  "date": "2024-06-15T10:00:00Z",
+  "availableSeats": 3,
+  "price": 100
+}</code></pre>
+
+                <h3>Tüm Seyahatleri Listeleme</h3>
+                <pre><code>GET /api/trips</code></pre>
+
+                <h3>Belirli Bir Seyahati Görüntüleme</h3>
+                <pre><code>GET /api/trips/:id</code></pre>
+
+                <h3>Seyahati Güncelleme</h3>
+                <pre><code>PUT /api/trips/:id
+Headers: 
+  x-auth-token: [token]
+Body:
+{
+  "origin": "Istanbul",
+  "destination": "Izmir",
+  "date": "2024-06-16T10:00:00Z",
+  "availableSeats": 2,
+  "price": 120
+}</code></pre>
+
+                <h3>Seyahati Silme</h3>
+                <pre><code>DELETE /api/trips/:id
+Headers: 
+  x-auth-token: [token]</code></pre>
+            </section>
+
+            <section class="section">
+                <h2>4. Rezervasyon Sistemi</h2>
+                <h3>Rezervasyon Oluşturma</h3>
+                <pre><code>POST /api/bookings
+Headers: 
+  x-auth-token: [token]
+Body:
+{
+  "tripId": "trip_id",
+  "seats": 2
+}</code></pre>
+
+                <h3>Tüm Rezervasyonları Listeleme</h3>
+                <pre><code>GET /api/bookings</code></pre>
+
+                <h3>Belirli Bir Rezervasyonu Görüntüleme</h3>
+                <pre><code>GET /api/bookings/:id</code></pre>
+
+                <h3>Rezervasyonu İptal Etme</h3>
+                <pre><code>DELETE /api/bookings/:id
+Headers: 
+  x-auth-token: [token]</code></pre>
+            </section>
+
+            <section class="section">
+                <h2>5. Mesajlaşma Sistemi</h2>
+                <h3>Mesaj Gönderme</h3>
+                <pre><code>POST /api/messages
+Headers: 
+  x-auth-token: [token]
+Body:
+{
+  "receiverId": "user_id",
+  "content": "Hello, how are you?"
+}</code></pre>
+
+                <h3>Kullanıcıya Ait Tüm Mesajları Listeleme</h3>
+                <pre><code>GET /api/messages
+Headers: 
+  x-auth-token: [token]</code></pre>
+
+                <h3>İki Kullanıcı Arasındaki Mesajları Listeleme</h3>
+                <pre><code>GET /api/messages/user/:userId
+Headers: 
+  x-auth-token: [token]</code></pre>
+            </section>
+
+            <section class="section">
+                <h2>6. Bildirim Sistemi</h2>
+                <h3>Kullanıcının Bildirimlerini Alma</h3>
+                <pre><code>GET /api/notifications
+Headers: 
+  x-auth-token: [token]</code></pre>
+
+                <h3>Bildirimi Okundu Olarak İşaretleme</h3>
+                <pre><code>PUT /api/notifications/:id
+Headers: 
+  x-auth-token: [token]</code></pre>
+            </section>
+
+            <section class="section">
+                <h2>7. Favori Rotalar</h2>
+                <h3>Favori Rota Ekleme</h3>
+                <pre><code>POST /api/favorite-routes
+Headers: 
+  x-auth-token: [token]
+Body:
+{
+  "origin": "Istanbul",
+  "destination": "Ankara"
+}</code></pre>
+
+                <h3>Kullanıcının Favori Rotalarını Alma</h3>
+                <pre><code>GET /api/favorite-routes
+Headers: 
+  x-auth-token: [token]</code></pre>
+
+                <h3>Favori Rota Silme</h3>
+                <pre><code>DELETE /api/favorite-routes/:id
+Headers: 
+  x-auth-token: [token]</code></pre>
+            </section>
+
+            <section class="section">
+                <h2>8. Bildirim Tercihleri</h2>
+                <h3>Bildirim Tercihlerini Güncelleme</h3>
+                <pre><code>PUT /api/notification-preferences
+Headers: 
+  x-auth-token: [token]
+Body:
+{
+  "emailNotifications": true,
+  "smsNotifications": false,
+  "pushNotifications": true
+}</code></pre>
+
+                <h3>Kullanıcının Bildirim Tercihlerini Alma</h3>
+                <pre><code>GET /api/notification-preferences
+Headers: 
+  x-auth-token: [token]</code></pre>
+            </section>
+        </div>
+    </div>
+</body>
+</html>
